@@ -3,7 +3,7 @@
 <img src="https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green">
 </p>
 <h1 align="center"> Financial Data Management System - SQL + NoSQL </h1>
-## 📌 Description
+<h3>Description</h3> 
 This project is a complete system for organizing and managing financial data from fintech platforms (Nequi, Daviplata, etc.).  
 The solution normalizes raw Excel data, imports it into a MySQL database, and provides a web interface with CRUD operations and advanced queries.
 crate a base of data with conection api
@@ -51,7 +51,8 @@ final_database/
 │
 │── README.md
 ```
-## System Features
+```
+System Features
 CRUD Operations
 Create: Add new clients
 Read: List all clients
@@ -64,7 +65,7 @@ Pending invoices with client and transaction details
 Endpoint: /api/queries/pending-invoices
 Transactions by platform (Nequi, Daviplata)
 Endpoint: /api/queries/transactions-by-platform/:platform
-
+```
 # Normalization Summary
 The original dataset contained mixed information (clients, invoices, transactions, platforms) in a single sheet.
 We applied 1NF, 2NF, and 3NF to create separate tables, remove redundancy, and ensure data consistency.
