@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>CRUD Constumers</title>
+    <link rel="stylesheet" href="../src/css/styles.css">
+    <head>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<body class="container mt-5">
+    <h1>Customer Management</h1>
+    <form id="clientForm">
+        <input type="text" placeholder="Name" id="first_name" class="form-control mb-2">
+        <input type="text" placeholder="Last name" id="last_name" class="form-control mb-2">
+        <input type="text" placeholder="Identificarion" id="identification_number" class="form-control mb-2">
+        <input type="text" placeholder="Phone" id="phone" class="form-control mb-2">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+    <hr>
+    <table class="table" id="clientTable"></table>
+
+    <script>
+        async function loadClients() {
+            const res = await fetch('/api/clients');
+            const data = await res.json();
+            let tableHTML = "<tr><th>ID</th><th>Nombre</th><th>Apellido</th><th>Acciones</th></tr>";
+            data.forEach(c => {
+                tableHTML += `<tr>
+                    <td>${c.client_id}</td>
+                    <td>${c.first_name}</td>
+                    <td>${c.last_name}</td>
+                    <td>
+                        <button onclick="deleteClient(${c.client_id})" class="btn btn-danger btn-sm">Delite</button>
+                    </td>
+                </tr>`;
+            });
+            document.getElementById('clientTable').innerHTML = tableHTML;
+        }
+
+        async function deleteClient(id) {
+            await fetch('/api/clients/' + id, { method: 'DELETE' });
+            loadClients();
+        }
+
+        document.getElementById('clientForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await fetch('/api/clients', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    first_name: document.getElementById('first_name').value,
+                    last_name: document.getElementById('last_name').value,
+                    identification_number: document.getElementById('identification_number').value,
+                    phone: document.getElementById('phone').value
+                })
+            });
+            loadClients();
+        });
+
+        loadClients();
+    </script>
+</body>
+</html>
